@@ -18,5 +18,6 @@ Replit site
 - It shows a lot of promise in what a great version of this could be like, but even with coding knowledge as a prompter you can't avoid it making mistakes.
 - It is definitely not good at mind-reading, especially when handling data.
 - I was disappointed with its understanding of how to implement basic functionality (eg adding habit trackers), but impressed with its speed of execution and the developer experience on the website (at least while everything is working fine).
+- I was also impressed it knew whether to ask me things like "do you want email reminders, analytics or a dashboard?"
 - I see users online talking about challenges with more advanced features like authentication where it seems to near-completely fail.
 - A responsive customer service team online seems like a great and much needed feature if they want to retain customers in the long term. In the short term though, it seems they are making sales (albeit to many unhappy customers). They are currently offering $1000 prizes to people making good sites on Replit.
