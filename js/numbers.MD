@@ -6,10 +6,13 @@
 1. **Floating-Point Precision** – JavaScript uses floating-point precision for all numbers, which can sometimes lead to rounding errors in calculations.
 1. **Type** – All numbers in JavaScript are of the `number` type, whether they're integers or floating-point values.
 1. **Inaccuracies**
-   - Numbers are 64 bit values in JS. They are accurate to 15 significant figures and can only have up to 17 decimal places.
-   - Mathematical operations with decimals should be avoided creatively (e.g. not `0.2 + 0.1 === 0.30004` but `(0.2 * 10 + 0.1 * 10 ) / 10`)
+   - Numbers are 64 bit double-precision floating point in JS.
+     - bits 0-51 are a fraction, bits 52-62 are the exponent and bit 63 is the sign.
+   - They are accurate to 15 significant figures and can only have up to 17 decimal places.
+   - Mathematical operations with floating point numbers should be avoided creatively (e.g. not `0.2 + 0.1 === 0.30004` but `(0.2 * 10 + 0.1 * 10 ) / 10`)
    - Any number larger than `Number.MAX_VALUE` will be treated as `Infinity`. Similarly, dividing a positive number by zero yields `Infinity`.
    - For integers larger than `Number.MAX_SAFE_INTEGER` (2^53 - 1), JavaScript has `BigInt`, which allows representation of arbitrarily large integers.
+1. **String numbers** - JS tries to convert strings to numbers by default when non-addition mathematical operators are used.
 
 ## Declarations
 
@@ -21,7 +24,7 @@
 
 1. **Value Conversion**:
    - `toFixed(digits)` – Rounds a number to a specified number of decimal places and returns it as a string.
-   - `toPrecision(precision)` – Returns a string representing the number to a specified length, rounding as necessary.
+   - `toPrecision(significantFigures)` – Rounds down.
    - `toExponential(digits)` – Returns the number in exponential (scientific) notation, rounded to the specified digits.
 
 ## Testing numbers
