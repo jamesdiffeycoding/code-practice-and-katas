@@ -21,7 +21,7 @@ function arrayDiff(a, b) {
 
 // Improve it using filter and some
 function arrayDiff2(a, b) {
-  return a.filter((value) => !b.some((element) => element === value));
+  return a.filter((value) => !b.some((element) => element === value)); // check if an element from the first array is (!) in the second array
 }
 
 // Use filter and includes
