@@ -48,7 +48,6 @@ function pythonSnake(body) {
     console.log("Index, ", i);
 
     let startLeft = i % 2 == 0;
-    console.log("Left ", startLeft);
     if (startLeft) {
       if (i == 0) {
         pads[i] = 0;
