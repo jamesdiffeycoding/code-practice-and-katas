@@ -38,41 +38,53 @@ console.log("RUNNING: 5kyu-python-snake.js");
 // ]
 
 /* Solution Example ----------------------------------- */
-// my solution:
+// My solution summary
+// 1. Calculate relative starting positions while recording maxIndex value required
+// 2. Calculate required width of array
+// 3. Shift pads 'right' towards zero if needed, accounting for minRelativeIndex
+// 4. Create response array using adjusted pads
+// 5. Add head and tail to snake, check snake length to determine tail direction
+
+// At first I made several mistakes.
+// 1. I should have made better test cases to help me build the function. There was not a good variety of test cases.
+// 2. I did not realise at first, based on the simpler test cases, that the point in the array with the largest value would not necessarily fill up an entire row.
+// This led me down an ineffective path of trying to fill up the top and bottom parts of the snake separately, believing the widest row was the only row with a sure location.
+// In fact, none of the rows 'x' values had a sure location and they all need to be calculated relative to eachother. It is not possible to place them immediately without knowing how many " " spaces to put for each.
+// In the end, I realised that to my mind the relative padding calculation makes the most sense. It accomplishes a lot in a single for loop.
+
 function pythonSnake(body) {
-  //   get relative starting positions of each row, starting from 0
-  let pads = [];
+  //   Calculate relative starting positions while recording maxIndex value required
+  let maxRelativeIndex = 0;
+  let relativePads = [];
 
-  let maxX = 0;
   for (let i = 0; i < body.length; i++) {
-    console.log("Index, ", i);
-
-    let startLeft = i % 2 == 0;
+    let startLeft = i % 2 == 0; // snake starts left to right and then alternates
     if (startLeft) {
+      // check whether to align on left or right of previous row
       if (i == 0) {
-        pads[i] = 0;
+        relativePads[i] = 0; // start from 0
       } else {
-        pads[i] = pads[i - 1];
+        relativePads[i] = relativePads[i - 1];
       }
     } else {
-      pads[i] = pads[i - 1] + body[i - 1] - body[i];
+      relativePads[i] = relativePads[i - 1] + body[i - 1] - body[i];
     }
-    if (pads[i] + body[i] > maxX) {
-      maxX = pads[i] + body[i];
+    if (relativePads[i] + body[i] > maxRelativeIndex) {
+      maxRelativeIndex = relativePads[i] + body[i];
     }
   }
 
-  //   calculate required width
-  let minX = Math.min.apply(null, pads);
+  //   Calculate required width of array
+  let minRelativeIndex = Math.min.apply(null, relativePads);
+  let width = maxRelativeIndex - minRelativeIndex;
 
-  let width = maxX - minX;
-
-  //   adjust pads
+  //   Shift pads 'right' towards zero if needed, accounting for minRelativeIndex
   let adjustedPads = [];
   for (let i = 0; i < body.length; i++) {
-    adjustedPads[i] = pads[i] - minX;
+    adjustedPads[i] = relativePads[i] - minRelativeIndex;
   }
 
+  // Create response array using adjusted pads
   let arr = [];
   for (let i = 0; i < body.length; i++) {
     arr[i] = "x".repeat(body[i]);
@@ -81,13 +93,13 @@ function pythonSnake(body) {
     arr[i] = arr[i].split("");
   }
 
-  //   add h and t
+  // Add head and tail to snake
   arr[0].splice(arr[0].indexOf("x"), 1, "H");
+
+  // Check snake length to determine tail direction
   if (arr.length % 2 === 1) {
-    // Last part is going left to right, place 'T' at the first 'x'
     arr[arr.length - 1].splice(arr[arr.length - 1].lastIndexOf("x"), 1, "T");
   } else {
-    // Last part is going right to left, place 'T' at the last 'x'
     arr[arr.length - 1].splice(arr[arr.length - 1].indexOf("x"), 1, "T");
   }
 
