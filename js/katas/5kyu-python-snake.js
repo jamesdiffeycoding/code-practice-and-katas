@@ -36,9 +36,67 @@ console.log("RUNNING: 5kyu-python-snake.js");
 // ['x', 'x', ' '],
 // ['x', 'x', 'T']
 // ]
-/* Solution Example ----------------------------------- */
 
+/* Solution Example ----------------------------------- */
+// my solution:
 function pythonSnake(body) {
+  //   get relative starting positions of each row, starting from 0
+  let pads = [];
+
+  let maxX = 0;
+  for (let i = 0; i < body.length; i++) {
+    console.log("Index, ", i);
+
+    let startLeft = i % 2 == 0;
+    console.log("Left ", startLeft);
+    if (startLeft) {
+      if (i == 0) {
+        pads[i] = 0;
+      } else {
+        pads[i] = pads[i - 1];
+      }
+    } else {
+      pads[i] = pads[i - 1] + body[i - 1] - body[i];
+    }
+    if (pads[i] + body[i] > maxX) {
+      maxX = pads[i] + body[i];
+    }
+  }
+
+  //   calculate required width
+  let minX = Math.min.apply(null, pads);
+
+  let width = maxX - minX;
+
+  //   adjust pads
+  let adjustedPads = [];
+  for (let i = 0; i < body.length; i++) {
+    adjustedPads[i] = pads[i] - minX;
+  }
+
+  let arr = [];
+  for (let i = 0; i < body.length; i++) {
+    arr[i] = "x".repeat(body[i]);
+    arr[i] = arr[i].padStart(body[i] + adjustedPads[i], " ");
+    arr[i] = arr[i].padEnd(width, " ");
+    arr[i] = arr[i].split("");
+  }
+
+  //   add h and t
+  arr[0].splice(arr[0].indexOf("x"), 1, "H");
+  if (arr.length % 2 === 1) {
+    // Last part is going left to right, place 'T' at the first 'x'
+    arr[arr.length - 1].splice(arr[arr.length - 1].lastIndexOf("x"), 1, "T");
+  } else {
+    // Last part is going right to left, place 'T' at the last 'x'
+    arr[arr.length - 1].splice(arr[arr.length - 1].indexOf("x"), 1, "T");
+  }
+
+  return arr;
+}
+
+// ChatGPTs solution below
+function pythonSnake2(body) {
   // We'll simulate the snake as a series of cells with (row, col) coordinates.
   // The head (first cell) and tail (last cell) will later be marked as 'H' and 'T'.
   let snakeCells = []; // store each snake cell as an object: { r, c }
