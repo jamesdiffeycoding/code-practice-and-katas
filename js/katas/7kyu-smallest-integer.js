@@ -22,6 +22,11 @@ console.log("RUNNING: 7kyu-smallest-integer.js");
 // 0,1,2,(3)...5
 
 /* Solution Example ----------------------------------- */
+// Edge cases
+// 1. If the matrix is empty, return 0
+// 2. If the matrix is full, return the next number
+// 3. If the matrix is not full, return the first number not in the matrix
+// 4. If the matrix is full of negative numbers, return 0
 
 function smallestInteger(matrix) {
   for (let i = 0; i < Infinity; i++) {
