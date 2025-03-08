@@ -1,0 +1,26 @@
+def dna_to_rna(dna):
+    str = ""
+    for i in dna:
+        if i == "T":
+            str+="U"
+        else:
+            str +=i
+    return str
+
+
+def DNAtoRNA(dna):
+    return dna.replace('T', 'U')
+
+
+dna_dict = {
+    'T': 'U',
+    'A': 'A',
+    'C': 'C',
+    'G': 'G'
+}
+
+def DNAtoRNA(dna):
+    rna = []
+    for letter in dna:
+        rna.append(dna_dict[letter])
+    return "".join(rna)

@@ -1,0 +1,21 @@
+# convert any string such that all but the last four digits are hashed
+
+def maskify(cc):
+    str = ""
+    for index, digit in enumerate(cc):
+        if index + 4 >= len(cc):
+            str+=digit
+        else:
+            str+="#"
+    return str
+
+def maskify(cc):
+    return "#"*(len(cc)-4) + cc[-4:]
+
+
+def maskify(cc):
+  word = list(cc)
+  for i in range(len(word) - 4):
+    word[i] = '#' # override values with # 
+  return ''.join(word)
+  pass

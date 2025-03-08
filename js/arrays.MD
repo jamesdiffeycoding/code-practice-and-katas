@@ -2,9 +2,10 @@
 
 ## Traits
 
-1. **Objects** – they are objects in themselves with keys and values.
+1. **Objects** – they are objects with keys and values.
 
 - There is a method to specifically check if `Array.isArray(yourValue)` given that the `typeof` an array is an object. You can also run `yourValue instanceof Array` to check.
+- Since objects cannot equal each other, to check for equality in values you must use .toString() on any arrays.
 
 1. **Keys** - keys are how values are accessed.
 
@@ -35,15 +36,15 @@
 
 1. `push(newValue)`
 1. **combining arrays** - `a1.concat(a2, a3, etc...)`
+1. `spread()` to combine arrays
+   - e.g. `q1=[1,2,3]; q2 = [4,5,6]; q3 = [...q1, ...q2]`
+1. `unshift(newValue)` adds first value
 
 **Remove and add / replace**
 
-1. `unshift(newValue)` replaces first value
 1. `a1.copyWithin(replaceStartIndex, valueFromIndex, endOfReplacementIndex)` - can have two or three arguments.
 1. `.splice(where, noToRemove, elementsToAdd)`
 1. `.toSpliced(where, noToRemove, elementsToAdd)` - this does not alter the original array
-
-## Cha
 
 ## Sorting methods
 
@@ -54,10 +55,16 @@
 1. `toSorted()` - this does not alter the original array
 1. `reverse()`
 1. `toReversed()` - this does not alter the original array.
+1. `filter(function(value, index, array))`
 
 ## Iteration methods
 
-1. `forEach(function)`
+1. `forEach(function(value, index, array))`
+1. `every(function(value, index, array))` - returns true if all values match criteria
+1. `some(function(value, index, array))` - returns true if one or more values match criteria
+1. `reduce(accumulator, value, index, array)` reduces the array to a single value
+1. `let keys = array.keys; for(let key of keys) {...}` - run a function on each of the keys
+1. `let entries = array.entries; for(let entry of entries) {...}` - run a function on each of the entries/values.
 
 ## Search Methods
 
@@ -70,7 +77,6 @@
 
 ## Misc
 
-- `flat()` to flatten nested arrays
-
+1. `flat()` to flatten nested arrays
 1. `.map(value => newValue)`
 1. `flatMap(value => [newValues])`

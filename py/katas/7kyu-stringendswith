@@ -1,0 +1,11 @@
+# check if text string ends with the ending values
+
+def solution(text, ending):
+    if text[-len(ending):] == ending:
+        return True
+    return False
+
+
+def solution(string, ending):
+    return string.endswith(ending)
+
