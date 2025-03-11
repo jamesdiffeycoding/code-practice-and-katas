@@ -13,7 +13,7 @@
 1. `at(index)` allows + and - indexes. Otherwise standard `arr[index]` notation is good.
 1. `slice(start,end)` is gets a chunk of the array.
 
-# Removing/Adding/Replacing values
+# Removing/Adding/Replacing values ➕ ➖ 🔄
 
 Remove:
 
@@ -38,7 +38,7 @@ Replace:
 1. `splice(indexToReplace, noToRemove, elementsToAdd)` - third element needed if replacing
 1. `toSpliced(indexToReplace, noToRemove, elementsToAdd)` - creates new array.
 
-## Sorting methods
+## Sorting methods 📚
 
 1. `sort()` - reorders and mutates the original array
 1. `sort(compareFunction)` sorts based on a boolean return
