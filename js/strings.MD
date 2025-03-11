@@ -37,7 +37,20 @@
 1. `includes(str2)`
 1. `startsWith(str2)`
 1. `search(regexp)`
-1. `match(regexp)`
+1. `match(regexp)` - eg
+   const str = "For more information, see Chapter 3.4.5.1";
+   const re = /see (chapter \d+(\.\d)\*)/i;
+   const found = str.match(re);
+
+   console.log(found);
+   // [
+   // 'see Chapter 3.4.5.1',
+   // 'Chapter 3.4.5.1',
+   // '.1',
+   // ]
+   An Array whose contents depend on the presence or absence of the global (g) flag, or null if no matches are found.
+   If the g flag is used, all results matching the complete regular expression will be returned, but capturing groups are not included.
+   If the g flag is not used, only the first complete match and its related capturing groups are returned. In this case, match() will return the same result as RegExp.prototype.exec() (an array with some extra properties).
 
 ## Conversion Methods 🎰
 
