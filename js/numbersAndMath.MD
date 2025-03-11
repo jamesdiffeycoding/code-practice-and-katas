@@ -1,5 +1,7 @@
 # Numbers
 
+<br>
+
 ## Traits 🧠
 
 1. **Immutable** – Just like strings, number values are immutable in JavaScript. Any operation on a number creates a new value rather than modifying the original number.
