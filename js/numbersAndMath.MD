@@ -22,7 +22,7 @@
 
 <br>
 
-## Number Object Methods: Tests and Values
+## Number Object Methods: Tests and Values 🧪
 
 Tests:
 
@@ -37,7 +37,7 @@ Values:
 2. `Number.NEGATIVE_INFINITY` – Represents negative infinity.
 3. `Number.NaN` – Represents "Not-a-Number" (used to indicate invalid or undefined mathematical operations). Note that NaN !== NaN
 
-## Conversions
+## Conversions 🔄
 
 Changing values:
 
@@ -60,11 +60,11 @@ JavaScript also provides a global `Math` object that contains useful mathematica
 
 1. **Basic Operations**:
 
-   - `Math.abs(value)` – Returns the absolute value of a number.
    - `Math.max(a, b, c, ...)` – Returns the largest of the numbers.
    - `Math.min(a, b, c, ...)` – Returns the smallest of the numbers.
-   - `Math.pow(base, exponent)` – Returns the base raised to the exponent power.
    - `Math.sqrt(value)` – Returns the square root of a value.
+   - `Math.abs(value)` – Returns t he absolute value of a number.
+   - `Math.pow(base, exponent)` – Returns the base raised to the exponent power.
 
 2. **Randomization**:
 

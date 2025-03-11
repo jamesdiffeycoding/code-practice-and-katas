@@ -1,22 +1,24 @@
 # Strings
 
-## Traits
+<br>
+
+## Traits 🧠
 
 1. **Immutable** – String values cannot be altered or changed directly. Any operation on a string results in the creation of a new string, effectively overriding the original value.
 1. **Primitive** - strings are one of 6 primitive data types in JS (strings, numbers, bigint, boolean, undefined, null). Strings are not objects and have no methods.
 
-## Declarations
+## Declarations 🔊
 
 1. Template Literals (`${variable}`) can be used for string interpolation.
 
-## Properties and Access
+## Properties and Access 🗺️
 
 1. **`str.length`**
 1. **`string.at(n)`**
    - The `at` method is often preferred over `str[n]` and `.charAt(n)` as it allows negative indexing.
    - Variations include `charCodeAt(n)` for the Unicode value.
 
-## New String Methods
+## String Methods 👷
 
 1. **Capitalisation**: `toLowerCase()`, `toUpperCase()`
 1. **Whitespace Removal**: `trim()`, `trimStart()`, `trimEnd()`
@@ -28,7 +30,7 @@
 1. **Padding for Fixed Lengths**: `padStart(desiredLength, values)`, `padEnd(desiredLength, values)`
 1. **Reverse**: weirdly, there is no string reverse method. Instead, convert to an array and use the Array.reverse() method: `string.split("").reverse().join("")`.
 
-## Search Methods
+## Search Methods 🔍
 
 1. `indexOf(substr)`, `lastIndexOf(substr)`
    - Both return `-1` if not found.
@@ -37,12 +39,12 @@
 1. `search(regexp)`
 1. `match(regexp)`
 
-## Conversion Methods
+## Conversion Methods 🎰
 
 1. `split(separator)` – Converts to an array.
+1. `Number(string)` - Converts to a number
 
-## Misc
+## Lexigraphical comparisons 🧪
 
-1. **Lexigraphical comparisons** – `str1 < str2` depending on the letters and numbers used or `str1.localeCompare(str2)`
-   - `<` returns a boolean, while `.localeCompare()` returns `-1`, `0`, or `1`.
-   - accented letters may have greater or lesser value depending on the locale
+1. `str1 < str2` depending on the letters and numbers used. It returns a boolean.
+1. `str1.localeCompare(str2)` is similar, but accented letters may have greater or lesser value depending on the locale. It returns `-1`, `0`, or `1`.

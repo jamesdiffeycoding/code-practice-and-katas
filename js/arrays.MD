@@ -1,5 +1,7 @@
 # Arrays
 
+<br>
+
 ## Traits 🧠
 
 1. **Objects** – arrays are objects with keys and values. `Checking for equality:` There is a method to specifically check if `Array.isArray(yourValue)` given that the `typeof` an array is an object. You can also run `yourValue instanceof Array` to check. Since objects cannot equal each other, to check for equality in values you must use .toString() on any arrays.
