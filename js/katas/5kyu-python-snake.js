@@ -1,5 +1,3 @@
-console.log("RUNNING: 5kyu-python-snake.js");
-
 /* Description ---------------------------------------- */
 // Amirhossein is a painter who also loves pets. He has just bought a python snake, and would love to draw a picture of it. Now the snake is lying curled up, and Amirhossen wants to draw it using the smallest canvas possible.
 

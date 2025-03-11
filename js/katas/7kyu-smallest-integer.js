@@ -1,5 +1,3 @@
-console.log("RUNNING: 7kyu-smallest-integer.js");
-
 /* Description ---------------------------------------- */
 // You're given a two-dimensional array of integers matrix. Your task is to determine the smallest non-negative integer that is not present in this array.
 

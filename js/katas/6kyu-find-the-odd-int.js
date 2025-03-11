@@ -1,5 +1,3 @@
-console.log("RUNNING: 6kyu-find-the-odd-int.js");
-
 /* Description ---------------------------------------- */
 
 // Given an array of integers, find the one that appears an odd number of times.
