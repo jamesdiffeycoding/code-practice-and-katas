@@ -55,7 +55,7 @@ Replace:
 1. `map((value, index) => newValue)` - can't be broken out of
 1. `reduce(accumulator, value, index, array)` reduces the array to a single value
 1. `let keys = array.keys; for(let key of keys) {...}` - run a function on each of the keys
-1. `let entries = array.entries; for(let entry of entries) {...}` - run a function on each of the entries/values.
+1. `let entries = array.entries; for(let entry of entries) {...}` - run a function on each of the entries/values. Gives [key, value] pairs.
 
 ## Search Methods 🔍
 
