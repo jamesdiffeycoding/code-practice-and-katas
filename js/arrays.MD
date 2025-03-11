@@ -19,6 +19,8 @@ Remove:
 
 1. `pop()` deletes last value
 1. `shift()` deletes first value
+1. `splice(indexToReplace, noToRemove, elementsToAdd)` - third element needed if replacing
+1. `toSpliced(indexToReplace, noToRemove, elementsToAdd)` - creates new array.
 
 Add:
 
@@ -32,8 +34,8 @@ Combine arrays:
 
 Replace:
 
-1. `a1.copyWithin(indexToReplace, indexToCopy, optionalEndIndexToReplace)`
-1. `splice(indexToReplace, noToRemove, elementsToAdd)`
+1. `a1.copyWithin(target, start,end)` - copies value(s) at index 'target' the element(s) at index 'start' ending at index 'end'
+1. `splice(indexToReplace, noToRemove, elementsToAdd)` - third element needed if replacing
 1. `toSpliced(indexToReplace, noToRemove, elementsToAdd)` - creates new array.
 
 ## Sorting methods
@@ -75,9 +77,9 @@ Replace:
 
 Mutators: 🧟
 
-1. delete()
 1. pop()
 1. shift()
+1. delete()
 1. unshift()
 1. copyWithin(replace, copy, endOfReplacement)
 1. splice(replace, number, addElement)
@@ -86,10 +88,10 @@ Mutators: 🧟
 
 Creators: 👷
 
-1. concat()
 1. toSpliced(replace, number, addElement)
 1. toSorted()
 1. toReversed()
+1. concat()
 1. filter()
 1. flat()
 1. map()
