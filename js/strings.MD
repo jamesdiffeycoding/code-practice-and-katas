@@ -36,7 +36,17 @@
    - Both return `-1` if not found.
 1. `includes(str2)`
 1. `startsWith(str2)`
-1. `search(regexp)`
+1. `search(regexp)` - eg
+   function firstNonRepeatingLetter(s) {
+   for (let i = 0; i<s.length; i++) {
+   let regex = new RegExp(s[i], 'i') // case insensitive search
+   let slicedString = s.slice(0, i) + s.slice(i+1)
+   if (slicedString.search(regex) == -1){
+   return s[i]
+   }  
+    }
+   return ""
+   }
 1. `match(regexp)` - eg
    const str = "For more information, see Chapter 3.4.5.1";
    const re = /see (chapter \d+(\.\d)\*)/i;
