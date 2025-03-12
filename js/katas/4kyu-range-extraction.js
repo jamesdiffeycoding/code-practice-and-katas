@@ -30,14 +30,13 @@ function solution(list) {
     ) {
       response.push(currentV);
     } else {
-      //   add range
-      for (let j = 1; j < Infinity; j++) {
-        if (list.indexOf(currentV + j + 1) == -1) {
-          response.push(`${currentV}-${currentV + j}`);
-          i += j;
-          break;
-        }
+      //   add range using while loop just to avoid nested for loop
+      let j = 1;
+      while (list.indexOf(currentV + j + 1) !== -1) {
+        j++;
       }
+      i += j;
+      response.push(`${currentV}-${currentV + j}`);
     }
   }
   return response.join(",");
@@ -67,18 +66,14 @@ The pattern this solution used is that...
 
 */
 function solution(list) {
-  return (
-    list.reduce((acc, curr, i) => {
-      if (i == 0) return curr.toString();
-      if (list[i - 1] == curr - 1 && list[i + 1] == curr + 1) return acc; // we are mid sequence - just RT
-      if (list[i - 2] == curr - 2 && list[i - 1] == curr - 1)
-        return acc + "-" + curr; // range sufficient but next value not sequential means we reached end of reach - add range and RT
-      return acc + "," + curr; // neither mid sequence nor at end of sequence > (add commar and standalone value)
-    }),
-    ""
-  );
+  return list.reduce((acc, curr, i) => {
+    if (i == 0) return curr.toString();
+    if (list[i - 1] == curr - 1 && list[i + 1] == curr + 1) return acc; // we are mid sequence - just RT
+    if (list[i - 2] == curr - 2 && list[i - 1] == curr - 1)
+      return acc + "-" + curr; // range sufficient but next value not sequential means we reached end of reach - add range and RT
+    return acc + "," + curr; // neither mid sequence nor at end of sequence > (add commar and standalone value)
+  }, "");
 }
-
 /* Tests ---------------------------------------------
 describe("Sample Tests", () => {
   it("Should pass sample tests", () => {
