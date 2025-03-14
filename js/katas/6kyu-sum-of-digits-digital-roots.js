@@ -1,5 +1,3 @@
-console.log("RUNNING: 6kyu-find-the-odd-int.js");
-
 /* Description ---------------------------------------- */
 
 // Digital root is the recursive sum of all the digits in a number.
