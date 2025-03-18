@@ -75,6 +75,21 @@ function add(a, b) {
   return nStr;
 }
 
+// codewars method
+function add(a, b) {
+  var res = "";
+  var c = 0;
+  a = a.split("");
+  b = b.split("");
+  while (a.length || b.length || c) {
+    // this uses the double bitwise NOT which converts the value to an integer
+    c += ~~a.pop() + ~~b.pop(); // ~~ is similar to Number() but never results in NaN
+    res = (c % 10) + res;
+    c = c > 9;
+  }
+  return res;
+}
+
 /* Tests ---------------------------------------------
 describe("Add two numbers", function(){
   it("should pass basic tests", function() {
