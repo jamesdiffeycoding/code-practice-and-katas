@@ -3,9 +3,7 @@ print("Python 3 course notes")
 
 # Python started in 1991, updated to Python 2 and Python 3 later.
 # P is easy to learn, well supported and widely used.
-# P is used for software (eg web dev with Flask)
-# P is used for data science (eg ML models with Tensorflow)
-# P is used for automation (eg scripts to automate analysis in Excel)
+# P is used for software (eg web dev with Flask), data science (eg ML models with Tensorflow) and automation (eg scripts to automate analysis in Excel)
 
 # Classes follow the CapWords convention (e.g. class MyDog)
 
