@@ -20,6 +20,7 @@ For your convenience, there is already a function 'isArray(o)' declared and defi
 */
 
 /* Solution Example ----------------------------------- */
+// A recursive solution
 Array.prototype.sameStructureAs = function (other) {
   if (this.length !== other.length) {
     return false;
@@ -46,8 +47,59 @@ Array.prototype.sameStructureAs = function (other) {
   return true;
 };
 
+// another
+Array.prototype.sameStructureAs = function (other) {
+  if (!Array.isArray(other) || this.length != other.length) return false;
+
+  for (var i = 0; i < this.length; ++i) {
+    if (Array.isArray(this[i])) {
+      if (!this[i].sameStructureAs(other[i])) {
+        return false;
+      }
+    } else if (Array.isArray(other[i])) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+// another
+
+Array.prototype.sameStructureAs = function (other) {
+  return (
+    isArray(other) &&
+    this.length == other.length &&
+    this.every(function (a, i) {
+      var b = other[i];
+      return isArray(a) ? a.sameStructureAs(b) : isArray(a) == isArray(b);
+    })
+  );
+};
+
+// another
+Array.prototype.sameStructureAs = function (other) {
+  return (
+    this.length == other.length &&
+    this.every(
+      (x, i) =>
+        isArray(x) == isArray(other[i]) &&
+        (!isArray(x) || x.sameStructureAs(other[i]))
+    )
+  );
+};
+
+// another
+Array.prototype.sameStructureAs = function (other) {
+  const arrayMap = (arr) =>
+    JSON.stringify(!Array.isArray(arr) ? 1 : arr.map(arrayMap));
+
+  return arrayMap(this) === arrayMap(other);
+};
+
 /* Tests ---------------------------------------------
 
+// comments explain the first solution 
 const chai = require("chai");
 const assert = chai.assert;
 
