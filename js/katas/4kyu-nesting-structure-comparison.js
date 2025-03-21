@@ -21,6 +21,8 @@ For your convenience, there is already a function 'isArray(o)' declared and defi
 
 /* Solution Example ----------------------------------- */
 // A recursive solution
+// --- note that you can write Array.isArray() simply as isArray() inside the prototype
+// --- recursively calls the function on each item of the array, checking if they are arrays or not and whether they have the same length
 Array.prototype.sameStructureAs = function (other) {
   if (this.length !== other.length) {
     return false;
@@ -31,10 +33,10 @@ Array.prototype.sameStructureAs = function (other) {
     //     check this[i] and other[i] have same .isArrayvalue
     //     if arrays, check their children have same array values
 
-    if (!Array.isArray(this[i]) && !Array.isArray(other[i])) {
+    if (!isArray(this[i]) && !isArray(other[i])) {
       // both are not arrays
       continue;
-    } else if (Array.isArray(this[i]) !== Array.isArray(other[i])) {
+    } else if (isArray(this[i]) !== isArray(other[i])) {
       // they dont match
       return false;
     } else {
@@ -48,15 +50,16 @@ Array.prototype.sameStructureAs = function (other) {
 };
 
 // another
+// --- recursively calls itself if this[i] is an array
+// --- returns false if the 'other' is not an array.
 Array.prototype.sameStructureAs = function (other) {
-  if (!Array.isArray(other) || this.length != other.length) return false;
-
+  if (!isArray(other) || this.length != other.length) return false;
   for (var i = 0; i < this.length; ++i) {
-    if (Array.isArray(this[i])) {
+    if (isArray(this[i])) {
       if (!this[i].sameStructureAs(other[i])) {
         return false;
       }
-    } else if (Array.isArray(other[i])) {
+    } else if (isArray(other[i])) {
       return false;
     }
   }
@@ -65,7 +68,7 @@ Array.prototype.sameStructureAs = function (other) {
 };
 
 // another
-
+// --- a creative approach still using recursion with a triple &&, &&, && condition in the return
 Array.prototype.sameStructureAs = function (other) {
   return (
     isArray(other) &&
@@ -90,9 +93,10 @@ Array.prototype.sameStructureAs = function (other) {
 };
 
 // another
+// --- a different kind of solution that evaluates this and other separately, mapping based on whether theres an array and then comparing stringified versions
 Array.prototype.sameStructureAs = function (other) {
   const arrayMap = (arr) =>
-    JSON.stringify(!Array.isArray(arr) ? 1 : arr.map(arrayMap));
+    JSON.stringify(!isArray(arr) ? 1 : arr.map(arrayMap));
 
   return arrayMap(this) === arrayMap(other);
 };
