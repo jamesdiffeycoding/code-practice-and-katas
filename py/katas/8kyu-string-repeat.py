@@ -13,6 +13,10 @@ def repeat_str(repeat, string):
         res += string
     return res
 
+def repeat_str(repeat, string):
+    return repeat * string
+
+
 
 # Tests ---------------------------------------------
 # import codewars_test as test

@@ -1,0 +1,978 @@
+### Checklist
+
+- [x] Lecture 0 - Scratch (NOTES) 10th October 2024
+- [x] Lecture 1 - C (NOTES) 14th October 2024
+- [x] Lecture 2 - Arrays (NOTES) 22nd October 2024
+- [ ] Lecture 3 -
+- [x] Lecture 4 - Memory (NOTES) 20th November 2024
+- [ ] Lecture 5 -
+- [ ] Lecture 6 -
+- [ ] Lecture 7 -
+- [ ] Lecture 8 -
+- [ ] Lecture 9 -
+- [ ] Lecture 10 -
+
+# Links
+
+[L0 - Scratch](https://www.notion.so/L0-Scratch-11f15e2a42b480c489c9c6988940cf48?pvs=21)
+
+[L1 - C](https://www.notion.so/L1-C-11f15e2a42b48001bf45f109e0e6981c?pvs=21)
+
+[L2 - Arrays (… cipher/cryptography, compilation, debugging, memory, status codes)](https://www.notion.so/L2-Arrays-cipher-cryptography-compilation-debugging-memory-status-codes-12615e2a42b4805896b9d9017455eb9e?pvs=21)
+
+[L4 Memory](https://www.notion.so/L4-Memory-14415e2a42b4800696e0fa54797aa1ed?pvs=21)
+
+### Summary
+
+| Lecture   | Key points                                                                           |
+| --------- | ------------------------------------------------------------------------------------ |
+| 0 Scratch | - Reusable functions and control flow operations can make your files easier to read. |
+
+- Code is abstracted in layers, at lower levels we have languages like C, at the core we have 1s and 0s.
+- ASCII conventions decide how symbols and letters are represented as 1s and 0s.
+- To be a good programmer, focus on the challenging intellectual problems not trivialities. |
+  | 1 C | - Computers only understand machine code (binary), which needs to be compiled from human-written source code
+- The command line is an efficient coding interface, contrasting with Graphical User Interfaces (GUI)
+- C programs require specific header files (e.g., stdio.h) for functionality
+- User input in C often utilizes library functions made by other people. Not much is built-in
+- Code quality is measured by 3 things: correctness, efficient design, and clean organization
+- Avoid "magic numbers" and strive for maintainable, concise code
+- C has various data types (int, long, float, double) with different sizes and precisions
+- Be aware of integer overflow and floating-point imprecision in calculations |
+  | 2 Arrays | - Cryptography involves scrambling information for security, using ciphers (algorithms) and keys⁠
+  ⁠- Compilation process includes preprocessing, compiling, assembling, and linking⁠
+- Debugging tools include rubber duck method, print logs, and debugger in VSCode⁠
+- Memory consists of transistors with addresses storing data; integer operations in C return integers⁠​
+- Arrays are contiguous sequences of values in memory, improving code design⁠
+- Strings in C are character arrays terminated by a null character ('\0')
+- Command line arguments can be accessed via the main function's parameters in C⁠
+  ⁠- Exit status codes indicate program success (0) or failure (positive numbers), viewable with 'echo $?' in terminal⁠ |
+
+hexadecimal system
+
+- in binary you need 8 digits to count to 255 (first column is 1s, second is 16s and you can count 15 in each)
+- in hexadecimal you only need 2 digits to count to 255
+- 0x just tells the human reader that its a hexidecimal, to avoid the ambiguity of 10 (being 17) vs A being 10.
+- HD is often used for addresses/pointers in memory
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/400dac7f-edd8-4a0d-8ad4-c8f2ba01e8a6/f64befb6-4654-4a7d-a52c-a333a65eeae9/image.png)
+
+**Working with memory in C**
+
+- in C, if you use the & symbol it tells you the ADDRESS of a variable
+- in C, if you use a \* (POINTER) symbol it tells you how to GET TO an address
+  - pointers are usually 64 bits because you have to count so high to map all the addresses.
+- in C, %p
+  - int n = 50
+  - int \*p = &n (p is the address of the integer n)
+    - printing n will give you 50
+    - printing \*p will give you 50
+    - printing p will give you the address in hexidecimal form 0xfasdlfkha (or similar)
+    -
+    -
+  - _its a bit confusing but the _ is used both for the pointer declaration and ‘dereferencing’ (going to the pointer)\*
+- printing %p gives you the address of a variable
+  - e.g. printf(”%p”, &s)
+  - doing this with
+  - in string, C is not actually a keyword! we have been using it for clarity
+  - we talked about strings as arrays
+    - h. i. !. \0 (to denote the end of a string)
+    - these can be accessed like an array with indexes [index]
+  - string is not a keyword in C. cs50.h prevents the error from
+    - string s = “example”
+    - in cs50 is the line typedef char \*string;
+      - it makes the keyword string, its automatically replacing string with char \*
+  - string characters are contiguous (back to back to back in memory)
+  - if you print the s[0] and s[1] and so on the addresses are contiguous.
+  - in higher level languages like python and java, there are actually parts of memory being used to record the length of strings, but in lower level languages you may need to cycle through the characters until you reach the \0.
+  - Although the indexing method works best, you can also do pointer arithmetic: doing things like
+    - char \*s = “HI!”;
+    - printf(”%c\n”, \*s);
+    - printf(”%c\n”, \*(s+1));
+    - printf(”%c\n”, \*(s+2));
+- every time you run the program the address may run around
+- pointers are usually useful for actually going to (dereferencing) an address, not for looking at the address for its own sake
+- often people just draw arrows from pointers to what they refer to.
+- the crowdstrike problem for airlines a few months ago was the result of things like this where people editing some values in memory that they shouldnt have. you have a lot of power in these lower level languages.
+- even if two strings are equal, their addresses wont be the same
+
+**Managing memory manually**
+
+- malloc: memory allocation library
+  - it make memory locations for you with specific numbers of bytes.
+- free library
+  - it will help you give memory back so you dont run out
+- you can use this to create copies of data so you dont always edit the original copy of data.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/400dac7f-edd8-4a0d-8ad4-c8f2ba01e8a6/6bdddbf4-4620-4a96-93f0-c9287106076c/image.png)
+
+- a lot of things can go wrong with memory
+- NULL is returned by malloc if something goes wrong.
+- you dont want to touch memory that doesnt belong to you
+- having conditional checks can help, e.g. only changing a value of you know it will exist there (e.g. if string length > 0, capitalise first letter),
+-
+
+**valgrind**
+
+- valgrind helps to detect common errors
+  - it is a command line program that allows you to look at your program for memory related errors
+- valgrind ./filename
+- memory related mistakes may be
+  - editing something you arent supposed to
+  - leaking memory, wasting space when you dont need to
+-
+
+**passing by values**
+
+- if you want to swap values between two variables you need a temporary placeholder
+- but the swap will only matter in local scope unless you actually change the value at the specific memory address
+- what we actually want to do is **pass in the reference** as below
+  - void swap (int *a. int *b)
+  - {
+    - int tmp = \*a
+    - *a = *b
+    - \*b = tmp
+  - }
+  - int x = 1
+  - int x = 2
+  - swap(&x, &y)
+
+stack overflow or heap overflow is when too much memory is being used. Generally called buffer overflow.
+
+- crowdstrike security software crashed due to trying to access a 21st array value when only 20 existed
+
+### L0 Scratch
+
+- Keep code as clean as possible. Make your own blocks or functions for repeated code.
+- Scratch can help you learn coding principles.
+- Code is converted down various layers of abstraction. At the core we have binary 1s and 0s.
+- C is a low level language. Python is higher level and offers some advantages built-in.
+- Learning low level languages can help you understand the higher level ones better.
+- Letters and emojis are represented under ASCII conventions, where certain patterns of 1s and 0s represent letters and emojis that then platforms translate into fonts and images.
+- Every year the Unicode consortium comes up with new combinations that represent different emojis. Developers must then implement emoji designs with designers for when those codes appear. If not, the default is probably some sort of empty box to be a placeholder.
+- Recommendation to keep mind focused on the intellectual problems, and not get distracted with trivial things.
+- Conditionals and loops are core concepts.
+
+### L1 C
+
+Computers only understand machine code (binary code) of 1s and 0s.
+
+- Computers have a built-in understanding what binary code patterns mean, whether it is for numbers, letters, printing language, playing sounds or other things.
+- Source code (that humans right) needs to be into machine code.
+  - Source code = input
+  - Compiler = mechanism
+  - Machine code = output
+- The command line is an efficient way to use computers for coding.
+- Graphical User Interface (GUI) contrasts with the command line interface CLI.
+- Containers are online stores of code, like when you use JavaScript Playground
+- Code snippets:
+
+```c
+#include <stdio.h>
+int main(void)
+{
+	printf("hello, world\n");
+	// \n will prevent the next terminal input appearing strangey on the same lline as this print statement
+	printf("this is how we do \"quotes\" inline \n");
+}
+
+```
+
+```python
+# COMMAND LINE CODE
+"code hello.c" #creates a file called hello.c
+"make hello" #triggers the compilation of hello.c file into a binary
+"./hello" #runs the machine code
+
+```
+
+- Header files always end in .h
+  - these are files that contain functionality that comes with the system (e.g. StandardIO.h). A library is a collection of code that someone else writes that you can use through headers. They usually come with online documentation.
+  - Printf in the above example comes from stdio.h
+  - because we are lower level language we need to be more specific about the code libraries we are using.
+- getting user input is surprisingly difficult in C
+
+  - it is common to use libraries of functions that give you this functionality out of the box to help you, e.g. ‘get_string’ (from user).
+
+- Below we add CS50’s get_string function from its library
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	string answer = get_string("What's your name? ");
+	print("hello, %s\n", str_answer);
+	// the %s is a placeholder for a string
+	string int_answer = get_int("What's your name? ");
+	print("you are this old: %i\n", int_answer);
+	// the %i is a placeholder for a string
+}
+```
+
+- conditionals!
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+if (x < y) {
+	printf("x less than y\n");
+}
+else if (x == y)
+{
+	printf("x is equal to y \n");
+}
+else
+{
+	printf("x is greater than y");
+}
+```
+
+- In any language there are hundreds of ways to do the same things. You just want the best and simplest ways.
+- Keep your code as short as possible. It makes it more maintainable and makes it less likely you will make a mistake.
+
+```c
+counter = counter + 1;
+counter += 1;
+counter ++;
+```
+
+```c
+
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	int x = get_int("What is x? ");
+	int y = get_int("What is y? ");
+
+	if (x<y)
+	{
+		printf("x is less than y\n");
+	}
+	else
+	{
+		printf("x is not less than y\n");
+	}
+}
+```
+
+- MEASURES OF CODE QUALITY
+  - CORRECTNESS: does it do what it is meant to
+  - DESIGN: is it efficient
+  - AESTHETIC: does it look clean and neatly organised?
+    - DRY principle. Dont repeat yourself
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	char c = get_char("Do you agree? ");
+	if (c=='y' || c == 'Y')
+	{
+		printf("Agreed.\n"(;
+	}
+	else if (c=='n' || 'N')
+	{
+		print("Not agreed.\n);
+	}
+}
+```
+
+While loop
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	int i = 3;
+	while (i > 0)
+	{
+		printf("meow");
+		i --;
+	}
+}
+```
+
+For loop
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	for( int i = 0; i<3; i++)
+	{
+		printf("meow\n");
+	}
+}
+```
+
+Defining named functions
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+// this prototype is needed for the compiler
+// since the function in C does not exist before it is 'called'
+
+void meow(void);
+
+int main(void)
+{
+	for(int i = 0; i<3; i++)
+	{
+		meow()
+	}
+}
+
+// named functions usually go beneath the main function
+// to do this you need to put the prototype of it at the top
+
+void meow(void) // void main void means no input no output
+{
+	printf("meow\n");
+}
+```
+
+Adding a parameter to the file
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+// this prototype is needed for the compiler
+// since the function in C does not exist before it is 'called'
+
+void meow(int n);
+
+int main(void)
+{
+	int number_input = get_int("Number: ")'
+	meow(number_input)
+}
+
+// named functions usually go beneath the main function
+// to do this you need to put the prototype of it at the top
+
+void meow(int n) // void main void means no input no output
+{
+	for(int i = 0; i<n; i++)
+	{
+		printf("meow\n");
+	}
+}
+```
+
+Creating a simple function with a return value
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int add(int a, int b);
+
+// int for the main function is standard because it always returns a number, by default (0)
+int main(void)
+{
+	int x = get_int("X: ");
+	int y = get_int("Y: ");
+
+	printf("%i\n", add(x + y));
+}
+
+// named functions usually go beneath the main function
+// to do this you need to put the prototype of it at the top
+
+int add(int a, int b)
+{
+	return a + b
+}
+```
+
+Linux
+
+- common for servers
+- characterised by a command line interface
+- When you go to [CS50.](http://CS50.DEV)dev with your own browser version of VsCode, it is a actually “Docker Container” running on an operating system called Linux.
+
+square blocks with a loop
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+// int for the main function is standard because it always returns a number, by default (0)
+int main(void)
+{
+	int x = get_int("Size: ");
+	while (n < 1)
+	{
+		x = get_int("Size: ")
+	}
+	square(x)
+}
+
+// named functions usually go beneath the main function
+// to do this you need to put the prototype of it at the top
+
+int square(int rows, int cols)
+{
+	for(int i = 0; i<rows; i++)
+	{
+		for(int j=0; k<cols; j++)
+		{
+			printf("#");
+		}
+		printf("\n);
+	}
+}
+```
+
+- you want to avoid “magic numbers” in your code that seem to come out of nowhere.
+
+square blocks with a DO WHILE loop
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+// int for the main function is standard because it always returns a number, by default (0)
+int main(void)
+{
+	 //  prompt user for positive integer
+	int n; // prototype
+	do
+	{
+		n = get_int("Size: ");
+	}
+	while(n<1);
+	square(x)
+}
+
+...
+```
+
+RAM - Random Access Memory
+
+- with more bytes, we can count to higher numbers.
+- 111 is 7, while 1000 is 8. The one is ‘carried’ when we reach a new power of 2.
+  - This is called integer overflow. Sometimes code is misprogrammed so when the number gets too large it goes back to 0, or it goes to a negative number if programmed to include negative numbers.
+-
+
+Numbers in C
+
+- TYPES
+  - int (integer, 32bit, 4 billion values)
+  - long (integer, 64bit)
+  - float (decimal, 32bit)
+  - double (double, 64bit)
+- 32 bit integers in C can go as large as 4 billion give or take, (if only positive numbers represented)
+- longs are 64 bit integers which are massive
+- **CAUTION ABOUT TRUNATION:** if you divide two ints, you will end up with an int (1 / 3 = 0)
+- TYPE CASTING
+  - (float) int_example will be a float
+- DECIMAL PLACES
+  - printf(”%.20f\n”, number); will give you 20 decimal places
+  - FLOATING POINT IMPRESCISION:
+    - if you do 1/3 with 20dp you’ll see that 1 / 3 = 0.3333333333432….
+      - this is because theres not enough numbers or memory for every single floating point number
+    - If we upgrade to use doubles instead, but it will still not be 100% accurate.
+    REAL WORLD EXAMPLES OF NUMBER IMPRECISION AND INTEGER OVERFLOW
+    - People were concerned about what would happen to numbers in all software around the world in the year 2,000 because years used to be stored with only 2 digits. Everyone needed to upgrade years from 2 to 4 digits. Most time in software is counted from 1970, the next time this will run out in 2038 and it will jump back to 1901 (4 billion integers)
+    - Pacman breaks at level 256. Bloons money tracker breaks when money gets to high..
+    - Boeing 787s could lose all power after 248 days of continuous power as they were counting time in hundredths of seconds (4 billion records). Solution was to turn off and on the plane. When you turn and off things it can help overcome some errors in peoples code.
+
+### Arrays (Cipher, cryptography, compilation, debugging, memory, status codes)
+
+**CIPHER / CRYPTOGRAPHY**
+
+- cryptography is the art of scrambling information for security reasons
+  - patterns can be simple (e.g. move letters one to the next, like C>D) or complex
+- how do we get from source code to machine code?
+  - what we have done so far is:
+    - **make** hello
+    - ./hello
+  - under the hood, when we use a different program called **clang** which is a bit less user friendly than make
+
+    - you would use arguments like hello as ‘**command line arguments**’ to clang, flags (-o means ‘ouptut’) with an output for the file name, etc
+    - it gets a bit less user friendly where you also have to add in libraries with -l (link) flags too, such as -lcs50 for adding cs50 in
+    - these methods are tedious as they are so commonly used, so **make** makes things much easier
+
+  - to turn an input into an encrypted output, we need two things
+    - a cipher / algorithm (e.g. increase ASCII number by X places)
+    - a key (e.g. a number of how many places to move)
+  - nowadays there are much more sophisticated encryption methods.
+    - Common simple methods:
+      - caeser method: add 1 to each letter
+      - rot 13: add 13 to each letter
+      - rot 26: (internet joke, add 26 to each letter for double security!)
+  - simpler methods can be brute-forced to decipher them.
+
+///////// compilation
+
+- what is involved in compilation (eg using clang directly or indirectly using make)? 4 key steps
+
+  - **preprocessing -** all libraries code is copy-pasted into the main file
+  - **compiling** - C is compiled into assembly code (even lower level) which are part of the operating system. There are documents that show the assembly code for different operating systems.
+  - **assembling** - assembly code is translated to binary computer code.
+  - **linking** - combining all the computer code from all relevant files/ libraries
+
+- can you decompile code?
+
+  - sort of… it would take a lot of work to cross reference it all
+  - sometimes there is ambiguity e.g. you cant tell from the binary whether a for loop or a while loop was used if the iterations are the same
+
+- javascript html and css are not compiled directly down to binary. They are viewable to anyone online in a web browser
+
+//////////////////////////////////// DEBUGGING
+
+- tools
+  - rubber duck - speak to it and explain your situation
+  - print/console logs -
+  - debugger in vscode
+    - breakpoints tell the program where to stop in debug mode
+    - it shows you what variables have been declared, their values
+      - old ‘garbage’ values may still be there from previous uses but it doesnt matter as it will be overwritten
+    - you can use WATCH mode to specify variables to watch
+    - BUTTONS
+      - WATCH variables
+      - STEP OVER, runs the entire code line
+      - STEP IN, does the next step in running the code line (
+      - CONTINUE, continue to next break point or end of file
+      -
+  -
+  -
+
+////////////// MEMORY
+
+- there are tiny transistors on memory with different addresses that store data
+- when you do math operations with integers in C, you will get an integer back.
+  - use float (value) to ensure you are using a float.
+
+//////////////// ARRAYS
+
+- arrays help avoid badly designed code
+- arrays are a data structure: a sequence of values back to back / ie contiguous in memory
+- in C if you pass an array into a function as an argument **unlike javascript and python** you also need to pass in the length of the array.
+
+Experimenting with arrays, iteratively improving
+
+```c
+#include <stdio.h>
+#include <cs50.h
+
+#Example 1 - ................................. how can we improve this code?
+int main(void)
+{
+	int scores[3]
+	scores[0] = 72;
+	scores[1] = 73;
+	scores[2] = 33;
+	printf("average: %f\n", (scores[0] + scores[1] + scores[2]) / 3.0);
+}
+
+#Example 2 - ..............................................................
+int main(void)
+{
+	int scores[3]
+	for (int i = 0 ; i<3 ; i++)
+	{
+		scores[i] = get_int("Score: ");
+	}
+	printf("average: %f\n", (scores[0] + scores[1] + scores[2]) / 3.0);
+}
+
+#Example 3 - ...............................................................
+int main(void)
+{
+	const int N = 3;
+	int scores[N]
+	for (int i = 0 ; i<3 ; i++)
+	{
+		scores[i] = get_int("Score: ");
+	}
+	printf("average: %f\n", (scores[0] + scores[1] + scores[2]) / (float) N );
+}
+
+#Example 4 - ...............................................................
+
+int main(void)
+{
+	int scores[N]
+	for (int i = 0 ; i<3 ; i++)
+	{
+		scores[i] = get_int("Score: ");
+	}
+	printf("average: %f\n", average(N, scores);
+}
+# in C if you pass an array into a function as an argument unlike javascript and python you also need to pass in the length of the array.
+float average(int length, int array[])
+{
+	int sum = 0;
+	for (int i = 0; i<length; i++)
+	{
+		sum+=array[i];
+	}
+	return sum / (float) length;
+}
+
+```
+
+note that the UNICODE equivalent of 72, 73, 33 is actually ‘H’, ‘I’, ‘!’ (see below
+
+- this is because underneath the hood 72 represents the letter ‘H’ and so on. In memory the pattern of 1s and 0s matches, it is not actually the letter ‘H’. We then give the instruction set by asking C to find the integers from those binary patterns
+
+```c
+#include <stdio.h>
+#include <cs50.h
+
+# prints HI!
+int main(void)
+{
+	char c1 = 'H'
+	char c2 = 'I'
+	char c3 = '!'
+	printf("%c %c %c\n", c1, c2, c3)
+}
+
+# changing %c to %i prints 72 73 33 because of UNICODE
+int main(void)
+{
+	char c1 = 'H'
+	char c2 = 'I'
+	char c3 = '!'
+	printf("%i %i %i\n", c1, c2, c3)
+}
+```
+
+we can think of strings as a bit like a string of characters
+
+- as shown below, printing string in characters also works
+
+```c
+#include <stdio.h>
+#include <cs50.h
+
+# prints HI!
+int main(void)
+{
+	string s = 'HI!'
+	printf("%s\n", s)
+}
+
+# prints HI! even when we refer to it as characters
+int main(void)
+{
+	string s = 'HI!'
+	printf("%c%c%c\n", s[0], s[1], s[2])
+}
+
+```
+
+so how does the computer know when a string ends then?
+
+- it adds an extra character at the end to book-end it. So a 3 character string has 3 bits of characters and 1 bit of placeholder, as below
+
+- note printing s[3] in the above example would give us a value of 0 (in ASCII this represents **NULL**)
+  - printing an index above 3 would give us a **garbage memory value**
+- in C double-quotes indicate to the computer a string
+- in C single-quotes indicate to the computer a char
+- side note: in ASCI, upper and lower case letters are 32 bits apart so you only need to change 1 bit to change from upper to lower case
+
+![](https://air-prod.imgix.net/cac4b2cc-bed3-4b3c-8b81-10dd43d70b60.jpg?w=546&h=2000&auto=compress&ixlib=react-9.8.1)
+
+If you have an array of strings you can get the first letter from each with double square brackets
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	string words[7];
+	words[0] = "Monday";
+	words[1] = "Tuesday";
+	# and so on....
+
+	printf("%c%c%c%c ....\n", words[0][0], words[1][0],....);
+	# prints MTWTFSS
+}
+
+```
+
+effectively, the print function for a string gets its length value from logic like this
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+	string name = get_string("enter: ");
+	int n=0;
+	# '/0' is another way of writing the bookend for a string
+	while (name[n] != '\0')
+	{
+		n++
+	}
+	printf("%i\n", length);
+	return n
+}
+
+```
+
+there’s a string library called **string.h** that has the **strlen** function that gets the string length
+
+- using other people’s code makes things a lot neater in your own files.
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+int main(void)
+{
+	string s= get_string("enter: ");
+	printf("Output: ");
+	for (int i = 0; i < strlen(s); i++)
+	{
+		printf("%c", s[i]);
+	}
+	printf("\n);
+}
+
+# How can we make this more efficient?
+# Right now we are calling the strlen function every single iteration.
+# One way is to declare it separately with length = strlen(n) before the function
+# Even better to embed it within the initialisation declarations
+# You can include multiple values in the initialisation if the data type is the same
+# see below...
+
+int main(void)
+{
+	string s= get_string("enter: ");
+	printf("Output: ");
+	for (int i = 0, n = strlen(s); i < n; i++)
+	{
+		printf("%c", s[i]);
+	}
+	printf("\n);
+}
+```
+
+Computer science - lower to upper case
+
+- in ASCI, upper and lower case letters are 32 bits apart so you only need to change 1 bit to change from upper to lower case
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+int main(void)
+{
+	string s = get_string("Before: ");
+	printf("After: ")
+	for (int i= 0, n = strlen(s); i<n; i++)
+	{
+		if (s[i]>='a' && s[i]<= 'z')
+		{
+			printf("%c", s[i]-32)
+		}
+		else
+		{
+			printf("%c", s[i])
+		}
+	}
+	printf("\n")
+}
+
+# in reality... there is already a function for it called toupper
+int main(void)
+{
+	string s = get_string("Before: ");
+	printf("After: ")
+	for (int i= 0, n = strlen(s); i<n; i++)
+	{
+		printf("%c", toupper(s[i]));
+	}
+	printf("\n")
+}
+```
+
+/// command line arguments
+
+- these can be input via the (arguments) of the main function in a C file
+-
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+int main(int argc, string arv[])
+{
+	print("hello, %s\n", argv[1]);
+}
+```
+
+- if you compile and run the file with **make file** and **./file** + a name argument, it will run it and then print “hello, ./greet”
+  - OOPS- that’s not what we want. It turns out argv[0] stores the file’s name.
+  - argv[1] ends up being the name the user puts into the terminal
+
+  - what if the user doesnt realise they should put an argument in?
+    - it would print null
+    - so lets guard against it…
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+int main(int argc, string arv[])
+{
+	if (argc==2)
+	{
+		print("hello, %s\n", argv[1]);
+	}
+	else
+	{
+		print("type a name in the terminal along with the file name")
+	}
+}
+```
+
+**Exit status codes**
+
+- programmes often give an error code that indicate to a computer or a developer what the issue is, but to a layperson they wont mean anything
+- why is main always returning an integer then? because the int returns **status codes**.
+  - 0 means success (only one successful integer)
+  - positive numbers (generally less than 500)
+- to see the exit status of the last code file you run type **echo $?** in the terminal
+  - it wont naturally show you the return value just by running the file
+
+```c
+#include <stdio.h>
+#include <cs50.h>
+#include <string.h>
+
+int main(int argc, string arv[])
+{
+	if (argc!=2)
+	{
+		print("missing command-line argument\n");
+		return 1
+	}
+	else
+	{
+		print("type a name in the terminal along with the file name")
+	}
+}
+```
+
+### L3
+
+### L4 Memory
+
+hexadecimal system
+
+- in binary you need 8 digits to count to 255 (first column is 1s, second is 16s and you can count 15 in each)
+- in hexadecimal you only need 2 digits to count to 255
+- 0x just tells the human reader that its a hexidecimal, to avoid the ambiguity of 10 (being 17) vs A being 10.
+- HD is often used for addresses/pointers in memory
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/400dac7f-edd8-4a0d-8ad4-c8f2ba01e8a6/f64befb6-4654-4a7d-a52c-a333a65eeae9/image.png)
+
+**Working with memory in C**
+
+- in C, if you use the & symbol it tells you the ADDRESS of a variable
+- in C, if you use a \* (POINTER) symbol it tells you how to GET TO an address
+  - pointers are usually 64 bits because you have to count so high to map all the addresses.
+- in C, %p
+  - int n = 50
+  - int \*p = &n (p is the address of the integer n)
+    - printing n will give you 50
+    - printing \*p will give you 50
+    - printing p will give you the address in hexidecimal form 0xfasdlfkha (or similar)
+    -
+    -
+  - _its a bit confusing but the _ is used both for the pointer declaration and ‘dereferencing’ (going to the pointer)\*
+- printing %p gives you the address of a variable
+  - e.g. printf(”%p”, &s)
+  - doing this with
+  - in string, C is not actually a keyword! we have been using it for clarity
+  - we talked about strings as arrays
+    - h. i. !. \0 (to denote the end of a string)
+    - these can be accessed like an array with indexes [index]
+  - string is not a keyword in C. cs50.h prevents the error from
+    - string s = “example”
+    - in cs50 is the line typedef char \*string;
+      - it makes the keyword string, its automatically replacing string with char \*
+  - string characters are contiguous (back to back to back in memory)
+  - if you print the s[0] and s[1] and so on the addresses are contiguous.
+  - in higher level languages like python and java, there are actually parts of memory being used to record the length of strings, but in lower level languages you may need to cycle through the characters until you reach the \0.
+  - Although the indexing method works best, you can also do pointer arithmetic: doing things like
+    - char \*s = “HI!”;
+    - printf(”%c\n”, \*s);
+    - printf(”%c\n”, \*(s+1));
+    - printf(”%c\n”, \*(s+2));
+- every time you run the program the address may run around
+- pointers are usually useful for actually going to (dereferencing) an address, not for looking at the address for its own sake
+- often people just draw arrows from pointers to what they refer to.
+- the crowdstrike problem for airlines a few months ago was the result of things like this where people editing some values in memory that they shouldnt have. you have a lot of power in these lower level languages.
+- even if two strings are equal, their addresses wont be the same
+
+**Managing memory manually**
+
+- malloc: memory allocation library
+  - it make memory locations for you with specific numbers of bytes.
+- free library
+  - it will help you give memory back so you dont run out
+- you can use this to create copies of data so you dont always edit the original copy of data.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/400dac7f-edd8-4a0d-8ad4-c8f2ba01e8a6/6bdddbf4-4620-4a96-93f0-c9287106076c/image.png)
+
+- a lot of things can go wrong with memory
+- NULL is returned by malloc if something goes wrong.
+- you dont want to touch memory that doesnt belong to you
+- having conditional checks can help, e.g. only changing a value of you know it will exist there (e.g. if string length > 0, capitalise first letter),
+-
+
+**valgrind**
+
+- valgrind helps to detect common errors
+  - it is a command line program that allows you to look at your program for memory related errors
+- valgrind ./filename
+- memory related mistakes may be
+  - editing something you arent supposed to
+  - leaking memory, wasting space when you dont need to
+-
+
+**passing by values**
+
+- if you want to swap values between two variables you need a temporary placeholder
+- but the swap will only matter in local scope unless you actually change the value at the specific memory address
+- what we actually want to do is **pass in the reference** as below
+  - void swap (int *a. int *b)
+  - {
+    - int tmp = \*a
+    - *a = *b
+    - \*b = tmp
+  - }
+  - int x = 1
+  - int x = 2
+  - swap(&x, &y)
+
+stack overflow or heap overflow is when too much memory is being used. Generally called buffer overflow.
+
+- crowdstrike security software crashed due to trying to access a 21st array value when only 20 existed
